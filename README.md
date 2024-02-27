@@ -4,6 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/outerweb/filament-translatable-fields.svg?style=flat-square)](https://packagist.org/packages/outerweb/filament-translatable-fields)
 
 This package adds a way to make all filament fields translatable.
+It uses the `spatie/laravel-translatable` package in the background.
 
 ## Installation
 
