@@ -45,7 +45,7 @@ class FilamentPanelProvider extends PanelProvider
             // ...
             ->plugins([
                 FilamentTranslatableFieldsPlugin::make()
-                    ->locales([
+                    ->supportedLocales([
                         'en' => 'English',
                         'nl' => 'Dutch',
                     ]),
