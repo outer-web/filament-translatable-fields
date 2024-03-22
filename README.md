@@ -68,6 +68,19 @@ TextInput::make('name')
     ->translatable(),
 ```
 
+## Overwrite locales
+
+If you want to overwrite the locales on a specific field you can set the locales through the second parameter of the `->translatable()` function.
+
+```php
+use Filament\Forms\Components\TextInput;
+
+TextInput::make('name')
+    ->label('Name')
+    ->translatable(true, ['en' => 'English', 'nl' => 'Dutch', 'fr' => 'French']),
+```
+
+
 ### Good to know
 
 This package will substitute the original field with a `Filament\Forms\Components\Tabs` component. This component will render the original field for each locale.
