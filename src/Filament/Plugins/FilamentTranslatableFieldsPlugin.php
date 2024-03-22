@@ -54,7 +54,7 @@ class FilamentTranslatableFieldsPlugin implements Plugin
     {
         $supportedLocales = $this->getSupportedLocales();
 
-        Field::macro('translatable', function (bool $translatable = true) use ($supportedLocales) {
+        Field::macro('translatable', function (bool $translatable = true, ?array $customLocales = null) use ($supportedLocales) {
             if (!$translatable) {
                 return $this;
             }
@@ -65,7 +65,7 @@ class FilamentTranslatableFieldsPlugin implements Plugin
              */
             $field = $this->getClone();
 
-            $tabs = collect($supportedLocales)
+            $tabs = collect($customLocales ?? $supportedLocales)
                 ->map(function ($label, $key) use ($field) {
                     $locale = is_string($key) ? $key : $label;
 
