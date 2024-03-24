@@ -80,7 +80,6 @@ TextInput::make('name')
     ->translatable(true, ['en' => 'English', 'nl' => 'Dutch', 'fr' => 'French']),
 ```
 
-
 ### Good to know
 
 This package will substitute the original field with a `Filament\Forms\Components\Tabs` component. This component will render the original field for each locale.
@@ -95,6 +94,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 ## Credits
 
 - [Simon Broekaert](https://github.com/SimonBroekaert)
+- [Finn Paes](https://github.com/FinnPaes)
 - [All Contributors](../../contributors)
 
 ## License
