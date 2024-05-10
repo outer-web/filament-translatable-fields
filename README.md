@@ -14,9 +14,9 @@ You can install the package via composer:
 composer require outerweb/filament-translatable-fields
 ```
 
-Add the plugin to your desired Filament panel:
+Add only `FilamentTranslatableFieldsPlugin` plugin to the desired Filament panel. **No need** to declare the `SpatieLaravelTranslatablePlugin` plugin:
 
-```php
+```diff
 use OuterWeb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
 
 class FilamentPanelProvider extends PanelProvider
@@ -26,7 +26,8 @@ class FilamentPanelProvider extends PanelProvider
         return $panel
             // ...
             ->plugins([
-                FilamentTranslatableFieldsPlugin::make(),
+-                SpatieLaravelTranslatablePlugin::make(),
++                FilamentTranslatableFieldsPlugin::make(),
             ]);
     }
 }
@@ -58,7 +59,43 @@ By default, the package will use the `app.locale` if you don't specify the local
 
 ## Usage
 
-You can simply add `->translatable()` to any field to make it translatable.
+Add `HasTranslations` and `$translatable` to your Model:
+
+```diff
++use Spatie\Translatable\HasTranslations;
+
+class Page extends Model 
+{
+    use HasFactory;
++    use HasTranslations;
+
++    public $translatable = [
++        'title',
++        'description',
++    ];
+}
+```
+
+Remove `use Translatable` and `LocaleSwitcher` from your Create and Edit pages:
+```diff
+-use Filament\Actions\LocaleSwitcher;
+-use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
+
+class EditPage extends EditRecord
+{
+-    use Translatable;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+-            LocaleSwitcher::make(),
+            DeleteAction::make(),
+        ];
+    }
+}
+```
+
+In your form, you can simply add `->translatable()` to any field to make it translatable.
 
 ```php
 use Filament\Forms\Components\TextInput;
