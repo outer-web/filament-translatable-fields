@@ -17,7 +17,7 @@ composer require outerweb/filament-translatable-fields
 Add the plugin to your desired Filament panel:
 
 ```php
-use OuterWeb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
+use Outerweb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
 
 class FilamentPanelProvider extends PanelProvider
 {
@@ -35,7 +35,7 @@ class FilamentPanelProvider extends PanelProvider
 You can specify the supported locales:
 
 ```php
-use OuterWeb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
+use Outerweb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
 
 class FilamentPanelProvider extends PanelProvider
 {
