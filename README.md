@@ -144,8 +144,8 @@ All chained methods you add after calling `->translatable()` will be applied to 
 
 | Laravel Version | Package version |
 | --------------- | --------------- |
-| ^11.0           | ^1.0.2          |
-| ^10.0           | ^1.0.0,         |
+| ^11.0           | ^1.0.2, ^2.0.0  |
+| ^10.0           | ^1.0.0, ^2.0.0  |
 
 ## Changelog
 

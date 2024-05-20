@@ -2,6 +2,12 @@
 
 All notable changes to `filament-translatable-fields` will be documented in this file.
 
+## 2.0.0 - 2024-05-20
+
+### Added
+
+- Added functionality to add locale specific validation rules to fields. (Thank you [Vedat YILMAZ](https://github.com/vedatyilmaz))
+
 ## 1.1.0 - 2024-03-24
 
 ### Added
