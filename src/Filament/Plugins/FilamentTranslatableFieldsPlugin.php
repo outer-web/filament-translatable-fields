@@ -54,8 +54,8 @@ class FilamentTranslatableFieldsPlugin implements Plugin
     {
         $supportedLocales = $this->getSupportedLocales();
 
-        Field::macro('translatable', function (bool $translatable = true, ?array $customLocales = null) use ($supportedLocales) {
-            if (!$translatable) {
+        Field::macro('translatable', function (bool $translatable = true, ?array $customLocales = null, ?array $localeSpecificRules = null) use ($supportedLocales) {
+            if (! $translatable) {
                 return $this;
             }
 
@@ -66,7 +66,7 @@ class FilamentTranslatableFieldsPlugin implements Plugin
             $field = $this->getClone();
 
             $tabs = collect($customLocales ?? $supportedLocales)
-                ->map(function ($label, $key) use ($field) {
+                ->map(function ($label, $key) use ($field, $localeSpecificRules) {
                     $locale = is_string($key) ? $key : $label;
 
                     $clone = $field
@@ -75,15 +75,18 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                         ->label($field->getLabel())
                         ->statePath("{$field->getStatePath(false)}.{$locale}");
 
-                    // Apply rules specific to the locale
-                    if (isset($this->localeRules[$locale])) {
-                        $clone->rules($this->localeRules[$locale]);
+                    if ($localeSpecificRules && isset($localeSpecificRules[$locale])) {
+                        $clone->rules($localeSpecificRules[$locale]);
+                    }
+
+                    // Workaround to add required styling to specific locales without using the required() method
+                    if (in_array('required', $clone->getValidationRules())) {
+                        $clone->required();
                     }
 
                     return Tabs\Tab::make($locale)
                         ->label(is_string($key) ? $label : strtoupper($locale))
-                        ->schema([$clone]);->statePath("{$field->getStatePath(false)}.{$locale}"),
-                        ]);
+                        ->schema([$clone]);
                 })
                 ->toArray();
 
@@ -91,12 +94,6 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                 ->tabs($tabs);
 
             return $tabsField;
-        });
-
-        Field::macro('rulesFor', function (array $localeRules) {
-            $this->localeRules = $localeRules;
-
-            return $this;
         });
     }
 }

@@ -1,3 +1,5 @@
+![Filament Translatable Fields](docs/images/banner.png)
+
 # Filament Translatable Fields
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/outerweb/filament-translatable-fields.svg?style=flat-square)](https://packagist.org/packages/outerweb/filament-translatable-fields)
@@ -92,6 +94,18 @@ TextInput::make('name')
     ->translatable(),
 ```
 
+## Disable translations dynamically
+
+If you want to disable translations dynamically, you can set the first parameter of the `->translatable()` function to `true` or `false`.
+
+```php
+use Filament\Forms\Components\TextInput;
+
+TextInput::make('name')
+    ->label('Name')
+    ->translatable(false),
+```
+
 ## Overwrite locales
 
 If you want to overwrite the locales on a specific field you can set the locales through the second parameter of the `->translatable()` function.
@@ -104,12 +118,34 @@ TextInput::make('name')
     ->translatable(true, ['en' => 'English', 'nl' => 'Dutch', 'fr' => 'French']),
 ```
 
+## Locale specific validation rules
+
+You can add locale specific validation rules with the third parameter of the `->translatable()` method.
+
+```php
+use Filament\Forms\Components\TextInput;
+
+TextInput::make('name')
+    ->label('Name')
+    ->translatable(true, null, [
+        'en' => ['required', 'string', 'max:255'],
+        'nl' => ['nullable', 'string', 'max:255'],
+    ]);
+```
+
 ### Good to know
 
 This package will substitute the original field with a `Filament\Forms\Components\Tabs` component. This component will render the original field for each locale.
 
 All chained methods you add before calling `->translatable()` will be applied to the original field.
 All chained methods you add after calling `->translatable()` will be applied to the `Filament\Forms\Components\Tabs` component.
+
+## Laravel support
+
+| Laravel Version | Package version |
+| --------------- | --------------- |
+| ^11.0           | ^1.0.2          |
+| ^10.0           | ^1.0.0,         |
 
 ## Changelog
 
@@ -119,8 +155,9 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 - [Simon Broekaert](https://github.com/SimonBroekaert)
 - [Finn Paes](https://github.com/FinnPaes)
+- [Vedat YILMAZ](https://github.com/vedatyilmaz)
 - [All Contributors](../../contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+MIT License (MIT). Read the [License File](LICENSE.md) for more information.
