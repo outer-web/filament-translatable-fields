@@ -8,6 +8,8 @@ It uses the `spatie/laravel-translatable` package in the background.
 
 ## Installation
 
+First install and configure your model(s) to use the `spatie/laravel-translatable` package.
+
 You can install the package via composer:
 
 ```bash
@@ -55,6 +57,28 @@ class FilamentPanelProvider extends PanelProvider
 ```
 
 By default, the package will use the `app.locale` if you don't specify the locales.
+
+### Combining with the official [spatie-laravel-translatable-plugin](https://github.com/filamentphp/spatie-laravel-translatable-plugin)?
+
+This package is a replacement for the official on the **create** and **edit** pages only. If you are already using the official package, you will have to delete the `use Translatable` trait and the `LocaleSwitcher` header action from those pages:
+
+```diff
+-use Filament\Actions\LocaleSwitcher;
+-use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
+
+class EditPage extends EditRecord
+{
+-    use Translatable;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+-            LocaleSwitcher::make(),
+            DeleteAction::make(),
+        ];
+    }
+}
+```
 
 ## Usage
 
