@@ -69,14 +69,20 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                 ->map(function ($label, $key) use ($field) {
                     $locale = is_string($key) ? $key : $label;
 
+                    $clone = $field
+                        ->getClone()
+                        ->name("{$field->getName()}.{$locale}")
+                        ->label($field->getLabel())
+                        ->statePath("{$field->getStatePath(false)}.{$locale}");
+
+                    // Apply rules specific to the locale
+                    if (isset($this->localeRules[$locale])) {
+                        $clone->rules($this->localeRules[$locale]);
+                    }
+
                     return Tabs\Tab::make($locale)
                         ->label(is_string($key) ? $label : strtoupper($locale))
-                        ->schema([
-                            $field
-                                ->getClone()
-                                ->name("{$field->getName()}.{$locale}")
-                                ->label($field->getLabel())
-                                ->statePath("{$field->getStatePath(false)}.{$locale}"),
+                        ->schema([$clone]);->statePath("{$field->getStatePath(false)}.{$locale}"),
                         ]);
                 })
                 ->toArray();
@@ -85,6 +91,12 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                 ->tabs($tabs);
 
             return $tabsField;
+        });
+
+        Field::macro('rulesFor', function (array $localeRules) {
+            $this->localeRules = $localeRules;
+
+            return $this;
         });
     }
 }
