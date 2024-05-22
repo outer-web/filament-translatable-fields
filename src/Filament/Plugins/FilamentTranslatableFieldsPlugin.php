@@ -68,6 +68,7 @@ class FilamentTranslatableFieldsPlugin implements Plugin
             $tabs = collect($customLocales ?? $supportedLocales)
                 ->map(function ($label, $key) use ($field, $localeSpecificRules) {
                     $locale = is_string($key) ? $key : $label;
+                    $localeLabel = locale_get_display_name($locale, app()->getLocale()) ?? (is_string($key) ? $label : strtoupper($locale));
 
                     $clone = $field
                         ->getClone()
@@ -85,7 +86,7 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                     }
 
                     return Tabs\Tab::make($locale)
-                        ->label(is_string($key) ? $label : strtoupper($locale))
+                        ->label($localeLabel)
                         ->schema([$clone]);
                 })
                 ->toArray();
