@@ -2,6 +2,12 @@
 
 All notable changes to `filament-translatable-fields` will be documented in this file.
 
+## 2.0.1 - 2024-06-09
+
+### Fixed
+
+- Removed use of `$clone->getValidationRules()` to fix an error.
+
 ## 2.0.0 - 2024-05-20
 
 ### Added

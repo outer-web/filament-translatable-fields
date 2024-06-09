@@ -79,11 +79,6 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                         $clone->rules($localeSpecificRules[$locale]);
                     }
 
-                    // Workaround to add required styling to specific locales without using the required() method
-                    if (in_array('required', $clone->getValidationRules())) {
-                        $clone->required();
-                    }
-
                     return Tabs\Tab::make($locale)
                         ->label(is_string($key) ? $label : strtoupper($locale))
                         ->schema([$clone]);
