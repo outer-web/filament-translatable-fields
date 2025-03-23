@@ -4,8 +4,7 @@ namespace Outerweb\FilamentTranslatableFields\Filament\Plugins;
 
 use Closure;
 use Filament\Contracts\Plugin;
-use Filament\Forms\Components\Field;
-use Filament\Forms\Components\Tabs;
+use Filament\Forms;
 use Filament\Panel;
 
 class FilamentTranslatableFieldsPlugin implements Plugin
@@ -54,41 +53,57 @@ class FilamentTranslatableFieldsPlugin implements Plugin
     {
         $supportedLocales = $this->getSupportedLocales();
 
-        Field::macro('translatable', function (bool $translatable = true, ?array $customLocales = null, ?array $localeSpecificRules = null) use ($supportedLocales) {
+        Forms\Components\Field::macro('translatable', function (
+            bool $translatable = true,
+            ?array $customLocales = null,
+            ?array $localeSpecificRules = null
+        ) use ($supportedLocales) {
             if (! $translatable) {
                 return $this;
             }
-
+        
             /**
              * @var Field $field
              * @var Field $this
              */
             $field = $this->getClone();
-
-            $tabs = collect($customLocales ?? $supportedLocales)
-                ->map(function ($label, $key) use ($field, $localeSpecificRules) {
-                    $locale = is_string($key) ? $key : $label;
-
-                    $clone = $field
-                        ->getClone()
-                        ->name("{$field->getName()}.{$locale}")
-                        ->label($field->getLabel())
-                        ->statePath("{$field->getStatePath(false)}.{$locale}");
-
-                    if ($localeSpecificRules && isset($localeSpecificRules[$locale])) {
-                        $clone->rules($localeSpecificRules[$locale]);
-                    }
-
-                    return Tabs\Tab::make($locale)
-                        ->label(is_string($key) ? $label : strtoupper($locale))
-                        ->schema([$clone]);
-                })
-                ->toArray();
-
-            $tabsField = Tabs::make('translations')
-                ->tabs($tabs);
-
-            return $tabsField;
+            $locales = collect($customLocales ?? $supportedLocales);
+        
+            // ? Disguise if it's only one locale If only one locale, adjust and return the cloned field directly.
+            if (config('filament-translatable-fields.disguise_when_one_locale_available') && $locales->count() === 1) {
+                $locale = $locales->first();
+                $clone = $field
+                    ->name("{$field->getName()}.{$locale}")
+                    ->label($field->getLabel())
+                    ->statePath("{$field->getStatePath(false)}.{$locale}");
+        
+                if ($localeSpecificRules && isset($localeSpecificRules[$locale])) {
+                    $clone->rules($localeSpecificRules[$locale]);
+                }
+        
+                return $clone;
+            }
+        
+            // ? Otherwise, build a tab for each locale.
+            $tabs = $locales->map(function ($label, $key) use ($field, $localeSpecificRules) {
+                $locale = is_string($key) ? $key : $label;
+        
+                $clone = $field
+                    ->getClone()
+                    ->name("{$field->getName()}.{$locale}")
+                    ->label($field->getLabel())
+                    ->statePath("{$field->getStatePath(false)}.{$locale}");
+        
+                if ($localeSpecificRules && isset($localeSpecificRules[$locale])) {
+                    $clone->rules($localeSpecificRules[$locale]);
+                }
+        
+                return Forms\Components\Tabs\Tab::make($locale)
+                    ->label(is_string($key) ? $label : strtoupper($locale))
+                    ->schema([$clone]);
+            })->toArray();
+        
+            return Forms\Components\Tabs::make('translations')->tabs($tabs);
         });
     }
 }

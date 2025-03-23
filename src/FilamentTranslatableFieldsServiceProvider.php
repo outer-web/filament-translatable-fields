@@ -12,15 +12,13 @@ class FilamentTranslatableFieldsServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('filament-translatable-fields')
+            ->hasConfigFile()
             ->hasInstallCommand(function (InstallCommand $command) {
-                $composerFile = file_get_contents(__DIR__ . '/../composer.json');
+                $command->publishConfigFile();
 
-                if ($composerFile) {
-                    $githubRepo = json_decode($composerFile, true)['homepage'] ?? null;
-
-                    if ($githubRepo) {
-                        $command
-                            ->askToStarRepoOnGitHub($githubRepo);
+                if ($composerFile = file_get_contents(__DIR__ . '/../composer.json')) {
+                    if ($githubRepo = json_decode($composerFile, true)['homepage'] ?? null) {
+                        $command->askToStarRepoOnGitHub($githubRepo);
                     }
                 }
             });
