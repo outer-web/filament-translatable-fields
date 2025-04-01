@@ -19,10 +19,7 @@
   "autoload": {
     "psr-4": {
       "Outerweb\\FilamentTranslatableFields\\": "src/"
-    },
-    "files": [
-      "src\\Helpers\\helpers.php"
-    ]
+    }
   },
   "extra": {
     "laravel": {
