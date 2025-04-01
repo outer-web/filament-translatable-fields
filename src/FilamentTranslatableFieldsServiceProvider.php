@@ -2,12 +2,15 @@
 
 namespace Outerweb\FilamentTranslatableFields;
 
+use Outerweb\FilamentTranslatableFields\Concerns\HasTranslatableFormsFieldMacros;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class FilamentTranslatableFieldsServiceProvider extends PackageServiceProvider
 {
+    use HasTranslatableFormsFieldMacros;
+
     public function configurePackage(Package $package): void
     {
         $package
@@ -22,5 +25,10 @@ class FilamentTranslatableFieldsServiceProvider extends PackageServiceProvider
                     }
                 }
             });
+    }
+
+    public function bootingPackage()
+    {
+        $this->translatableFormsFieldMacros();
     }
 }
