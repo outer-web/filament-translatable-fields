@@ -78,7 +78,14 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                     ->statePath("{$field->getStatePath(false)}.{$locale}");
 
                 if ($localeSpecificRules && isset($localeSpecificRules[$locale])) {
-                    $clone->rules($localeSpecificRules[$locale]);
+                    $localeRules = is_callable($localeSpecificRules[$locale])
+                        ? call_user_func($localeSpecificRules[$locale], $field)
+                        : $localeSpecificRules[$locale];
+
+                    $clone->rules([
+                        ...$field->getRules(),
+                        ...$localeRules,
+                    ]);
                 }
 
                 return $clone;
@@ -95,7 +102,14 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                     ->statePath("{$field->getStatePath(false)}.{$locale}");
 
                 if ($localeSpecificRules && isset($localeSpecificRules[$locale])) {
-                    $clone->rules($localeSpecificRules[$locale]);
+                    $localeRules = is_callable($localeSpecificRules[$locale])
+                        ? call_user_func($localeSpecificRules[$locale], $field)
+                        : $localeSpecificRules[$locale];
+
+                    $clone->rules([
+                        ...$field->getRules(),
+                        ...$localeRules,
+                    ]);
                 }
 
                 return Forms\Components\Tabs\Tab::make($locale)

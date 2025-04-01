@@ -1,4 +1,4 @@
-![Filament Translatable Fields](docs/images/banner.png)
+![Filament Translatable Fields](.github/images/banner.png)
 
 # Filament Translatable Fields
 
