@@ -51,7 +51,7 @@ trait HasTranslatableFormsFieldMacros
 
             // ? Disguise if it's only one locale If only one locale, adjust and return the cloned field directly.
             if (config('filament-translatable-fields.disguise_when_one_locale_available') && $locales->count() === 1) {
-                $locale = $locales->first();
+                $locale = $locales->keys()->first();
                 $clone = $field
                     ->name("{$field->getName()}.{$locale}")
                     ->label($field->getLabel())
