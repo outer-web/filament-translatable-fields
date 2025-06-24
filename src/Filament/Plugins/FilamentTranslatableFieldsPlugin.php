@@ -4,8 +4,8 @@ namespace Outerweb\FilamentTranslatableFields\Filament\Plugins;
 
 use Closure;
 use Filament\Contracts\Plugin;
-use Filament\Forms\Components\Field;
-use Filament\Forms\Components\Tabs;
+use Filament\Schemas\Components\Field;
+use Filament\Schemas\Components\Tabs;
 use Filament\Panel;
 
 class FilamentTranslatableFieldsPlugin implements Plugin
