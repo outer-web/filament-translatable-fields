@@ -2,6 +2,12 @@
 
 All notable changes to `filament-translatable-fields` will be documented in this file.
 
+## 3.0.0 - 2025-08-20
+
+### Added
+
+- Filament v4
+
 ## 2.1.0 - 2025-02-27
 
 ### Added
