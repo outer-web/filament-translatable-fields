@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Outerweb\FilamentTranslatableFields\Filament\Plugins;
 
 use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Field;
-use Filament\Schemas\Components\Tabs;
 use Filament\Panel;
+use Filament\Schemas\Components\Tabs;
 
 class FilamentTranslatableFieldsPlugin implements Plugin
 {
@@ -80,7 +82,7 @@ class FilamentTranslatableFieldsPlugin implements Plugin
                     }
 
                     return Tabs\Tab::make($locale)
-                        ->label(is_string($key) ? $label : strtoupper($locale))
+                        ->label(is_string($key) ? $label : mb_strtoupper($locale))
                         ->schema([$clone]);
                 })
                 ->toArray();
