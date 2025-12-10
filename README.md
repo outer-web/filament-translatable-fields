@@ -9,7 +9,7 @@
 
 This Filament plugin provides an integration for the [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable) package.
 
-It can easily be combined with the [lara-zeus/translatable](https://github.com/lara-zeus/translatable) package as our package only provides the Form integration.
+It can easily be combined with the [lara-zeus/translatable](https://github.com/lara-zeus/translatable) package as our package only provides the Form integration. To do so, simply remove all lara-zeus specific code from the Create and Edit pages of your Filament Resources. 
 
 Instead of rendering a dropdown to select the locale, it wraps the translatable fields in a Tabs component for a better user experience.
 
