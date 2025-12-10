@@ -1,0 +1,73 @@
+{
+    "name": "outerweb/filament-translatable-fields",
+    "description": "Filament integration for spatie/laravel-translatable",
+    "keywords": [
+        "outerweb",
+        "laravel",
+        "filament-translatable-fields"
+    ],
+    "homepage": "https://github.com/outerweb/filament-translatable-fields",
+    "support": {
+        "issues": "https://github.com/outerweb/filament-translatable-fields/issues",
+        "source": "https://github.com/outerweb/filament-translatable-fields"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Outerweb",
+            "email": "info@outerweb.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "filament/filament": "^4.0",
+        "spatie/laravel-package-tools": "^1.16",
+        "spatie/laravel-translatable": "^6.12"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.14",
+        "nunomaduro/collision": "^8.8",
+        "larastan/larastan": "^3.0",
+        "orchestra/testbench": "^10.0.0||^9.0.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-arch": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Outerweb\\FilamentTranslatableFields\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Outerweb\\FilamentTranslatableFields\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Outerweb\\FilamentTranslatableFields\\FilamentTranslatableFieldsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
