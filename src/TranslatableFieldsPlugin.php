@@ -42,12 +42,12 @@ class TranslatableFieldsPlugin implements Plugin
         return 'outerweb-filament-translatable-fields';
     }
 
-    public function register(Panel $panel): void
+    public function boot(Panel $panel): void
     {
         //
     }
 
-    public function boot(Panel $panel): void
+    public function register(Panel $panel): void
     {
         Field::macro(
             'translatable',

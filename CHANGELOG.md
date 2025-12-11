@@ -2,6 +2,12 @@
 
 All notable changes to `filament-translatable-fields` will be documented in this file.
 
+## 4.0.1 - 2025-12-11
+
+### Fixed
+
+- Register the macros in the register() method instead of the boot() method to ensure they are available when needed.
+
 ## 4.0.0 - 2025-12-10
 
 ### Changed
