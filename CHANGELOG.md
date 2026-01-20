@@ -2,6 +2,12 @@
 
 All notable changes to `filament-translatable-fields` will be documented in this file.
 
+## 4.1.0 - 2026-01-20
+
+### Added
+
+- Added support for Filament v5.
+
 ## 4.0.1 - 2025-12-11
 
 ### Fixed
@@ -12,7 +18,7 @@ All notable changes to `filament-translatable-fields` will be documented in this
 
 ### Changed
 
--   This is a complete rewrite of the package. Follow the new installation instructions in the README to upgrade an existing installation.
+- This is a complete rewrite of the package. Follow the new installation instructions in the README to upgrade an existing installation.
 
 ## 3.0.0 - 2025-08-20
 
