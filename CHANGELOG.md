@@ -2,6 +2,12 @@
 
 All notable changes to `filament-translatable-fields` will be documented in this file.
 
+## 4.1.1 - 2026-03-17
+
+### Added
+
+-   Added support for Laravel 13.
+
 ## 4.1.0 - 2026-01-20
 
 ### Added
